@@ -6,7 +6,8 @@ index = {"Kernel": "00_kernel.ipynb",
          "LinearKernel": "00_kernel.ipynb",
          "PolynomialKernel": "00_kernel.ipynb",
          "HomogeneousPolynomialKernel": "00_kernel.ipynb",
-         "GaussianKernel": "00_kernel.ipynb"}
+         "GaussianKernel": "00_kernel.ipynb",
+         "HyperbolicKernel": "00_kernel.ipynb"}
 
 modules = ["kernel.py"]
 

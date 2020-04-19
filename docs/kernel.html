@@ -52,7 +52,7 @@ description: "The `kernel` module contains the implementations of kernels."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Kernel" class="doc_header"><code>class</code> <code>Kernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L12" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Kernel</code>()</p>
+<h2 id="Kernel" class="doc_header"><code>class</code> <code>Kernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L13" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Kernel</code>()</p>
 </blockquote>
 
 </div>
@@ -85,7 +85,7 @@ method <code>get_default</code> returns a default kernel subclass.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Kernel.get_default" class="doc_header"><code>Kernel.get_default</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L23" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Kernel.get_default</code>()</p>
+<h4 id="Kernel.get_default" class="doc_header"><code>Kernel.get_default</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L39" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Kernel.get_default</code>()</p>
 </blockquote>
 <p>Return the default kernel.</p>
 
@@ -117,7 +117,7 @@ method <code>get_default</code> returns a default kernel subclass.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LinearKernel" class="doc_header"><code>class</code> <code>LinearKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L33" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LinearKernel</code>() :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
+<h2 id="LinearKernel" class="doc_header"><code>class</code> <code>LinearKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L49" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LinearKernel</code>() :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
 </blockquote>
 
 </div>
@@ -166,7 +166,7 @@ is unique, thus it is instantiated invoking the constructor without arguments.</
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="LinearKernel.compute" class="doc_header"><code>LinearKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>LinearKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
+<h4 id="LinearKernel.compute" class="doc_header"><code>LinearKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L51" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>LinearKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
 </blockquote>
 <p>Compute the dot product between <code>arg_1</code> and <code>arg_2</code>, where the
 dot product $x \cdot y$ is intended as the quantity
@@ -359,7 +359,7 @@ thrown.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PolynomialKernel" class="doc_header"><code>class</code> <code>PolynomialKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L70" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PolynomialKernel</code>(<strong><code>degree</code></strong>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
+<h2 id="PolynomialKernel" class="doc_header"><code>class</code> <code>PolynomialKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L72" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PolynomialKernel</code>(<strong><code>degree</code></strong>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
 </blockquote>
 
 </div>
@@ -393,7 +393,7 @@ space.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="PolynomialKernel.__init__" class="doc_header"><code>PolynomialKernel.__init__</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L72" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PolynomialKernel.__init__</code>(<strong><code>degree</code></strong>)</p>
+<h4 id="PolynomialKernel.__init__" class="doc_header"><code>PolynomialKernel.__init__</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L74" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PolynomialKernel.__init__</code>(<strong><code>degree</code></strong>)</p>
 </blockquote>
 <p>Creates an instance of <a href="/mulearn/kernel#PolynomialKernel"><code>PolynomialKernel</code></a></p>
 <ul>
@@ -453,7 +453,7 @@ space.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="PolynomialKernel.compute" class="doc_header"><code>PolynomialKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L85" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PolynomialKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
+<h4 id="PolynomialKernel.compute" class="doc_header"><code>PolynomialKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>PolynomialKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
 </blockquote>
 <p>Compute the polynomial kernel between <code>arg_1</code> and <code>arg_2</code>,
 where the kernel value $k(x_1, x_2)$ is intended as the quantity
@@ -684,7 +684,7 @@ thrown.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="HomogeneousPolynomialKernel" class="doc_header"><code>class</code> <code>HomogeneousPolynomialKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L110" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HomogeneousPolynomialKernel</code>(<strong><code>degree</code></strong>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
+<h2 id="HomogeneousPolynomialKernel" class="doc_header"><code>class</code> <code>HomogeneousPolynomialKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L109" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HomogeneousPolynomialKernel</code>(<strong><code>degree</code></strong>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
 </blockquote>
 
 </div>
@@ -718,7 +718,7 @@ space.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="HomogeneousPolynomialKernel.__init__" class="doc_header"><code>HomogeneousPolynomialKernel.__init__</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L112" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HomogeneousPolynomialKernel.__init__</code>(<strong><code>degree</code></strong>)</p>
+<h4 id="HomogeneousPolynomialKernel.__init__" class="doc_header"><code>HomogeneousPolynomialKernel.__init__</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L111" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HomogeneousPolynomialKernel.__init__</code>(<strong><code>degree</code></strong>)</p>
 </blockquote>
 <p>Creates an instance of <a href="/mulearn/kernel#HomogeneousPolynomialKernel"><code>HomogeneousPolynomialKernel</code></a>.</p>
 <ul>
@@ -778,7 +778,7 @@ space.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="HomogeneousPolynomialKernel.compute" class="doc_header"><code>HomogeneousPolynomialKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L125" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HomogeneousPolynomialKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
+<h4 id="HomogeneousPolynomialKernel.compute" class="doc_header"><code>HomogeneousPolynomialKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L124" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HomogeneousPolynomialKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
 </blockquote>
 <p>Compute the homogeneous polynomial kernel between <code>arg_1</code> and
 <code>arg_2</code>, where the kernel value $k(x_1, x_2)$ is intended as
@@ -1011,7 +1011,7 @@ thrown.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="GaussianKernel" class="doc_header"><code>class</code> <code>GaussianKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L151" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GaussianKernel</code>(<strong><code>sigma</code></strong>=<em><code>1</code></em>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
+<h2 id="GaussianKernel" class="doc_header"><code>class</code> <code>GaussianKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L148" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GaussianKernel</code>(<strong><code>sigma</code></strong>=<em><code>1</code></em>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
 </blockquote>
 
 </div>
@@ -1044,7 +1044,7 @@ superposition of exponential surfaces in the original space.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="GaussianKernel.__init__" class="doc_header"><code>GaussianKernel.__init__</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L153" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>GaussianKernel.__init__</code>(<strong><code>sigma</code></strong>=<em><code>1</code></em>)</p>
+<h4 id="GaussianKernel.__init__" class="doc_header"><code>GaussianKernel.__init__</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L150" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>GaussianKernel.__init__</code>(<strong><code>sigma</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
 <p>Creates an instance of <a href="/mulearn/kernel#GaussianKernel"><code>GaussianKernel</code></a>.</p>
 <ul>
@@ -1095,7 +1095,7 @@ standard deviation.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="GaussianKernel.compute" class="doc_header"><code>GaussianKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L167" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>GaussianKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
+<h4 id="GaussianKernel.compute" class="doc_header"><code>GaussianKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L164" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>GaussianKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
 </blockquote>
 <p>Compute the gaussian kernel between <code>arg_1</code> and <code>arg_2</code>,
 where the kernel value $k(x_1, x_2)$ is intended as the quantity
@@ -1262,6 +1262,75 @@ thrown.</p>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="HyperbolicKernel" class="doc_header"><code>class</code> <code>HyperbolicKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L187" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HyperbolicKernel</code>(<strong><code>scale</code></strong>=<em><code>1</code></em>, <strong><code>offset</code></strong>=<em><code>0</code></em>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
+</blockquote>
+<p>Hyperbolic kernel inducing in the original space a superposition of
+gaussian bells.</p>
+<p>:param scale: scale constant.</p>
+<p>:type scale: float</p>
+<p>:param offset: offset constant.</p>
+<p>:type offset: float</p>
+<p>EXAMPLES:</p>
+<p>A :class:<a href="/mulearn/kernel#HyperbolicKernel"><code>HyperbolicKernel</code></a> object is obtained in function of its degree:</p>
+<blockquote><blockquote><blockquote><p>from yaplf.models.kernel import HyperbolicKernel
+k = HyperbolicKernel(1, 5)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Arguments of a gaussian kernel are numeric list or tuples
+(possibily intertwined) having the same length, expressed as arguments of
+:meth:<code>compute</code>:</p>
+<blockquote><blockquote><blockquote><p>k.compute((1, 0, 1), (0, 0, 1))
+0.99998771165079559
+k.compute([-3, 1, 0.5], [1, 1.2, -8])
+-0.66403677026784891
+k.compute([-1, -4, 3.5], (1, 3.2, 6))
+0.99999999994938904</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Specification of iterables having unequal length causes a :exc:<code>ValueError</code>
+to be thrown.</p>
+<blockquote><blockquote><blockquote><p>k.compute([-1, 3.5], (1, 3.2, 6))
+Traceback (most recent call last):
+...
+ValueError: matrices are not aligned</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>AUTHORS:</p>
+<ul>
+<li>Dario Malchiodi (2011-02-05)</li>
+</ul>
+
+</div>
+
+</div>
+
 </div>
 </div>
 
