@@ -168,7 +168,7 @@ class GaussianKernel(Kernel):
         r'''
         Compute the gaussian kernel between `arg_1` and `arg_2`,
         where the kernel value $k(x_1, x_2)$ is intended as the quantity
-        $\mathrm e^{-\frac{||x_1 - x_2||^2}{2 \simga^2}$, $\sigma$
+        $\mathrm e^{-\frac{||x_1 - x_2||^2}{2 \sigma^2}}$, $\sigma$
         being the kernel standard deviation.
 
         - `arg_1`: first argument to the gaussian kernel (iterable).
