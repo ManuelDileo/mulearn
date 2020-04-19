@@ -14,7 +14,7 @@ class Kernel(object):
     def compute(self, arg_1, arg_2):
 
         raise NotImplementedError(
-            'this class does not implement compute method')
+            'this class does not implement the compute method')
 
     @classmethod
     def get_default(cls):
@@ -28,23 +28,17 @@ class LinearKernel(Kernel):
 
 
     def compute(self, arg_1, arg_2):
-        r"""
+        r'''
         Compute the dot product between `arg_1` and `arg_2`, where the
         dot product $x \cdot y$ is intended as the quantity
         $\sum_{i=1}^n x_i y_i$, $n$ being the dimension of both
         $x$ and $y$.
 
-        :param arg_1: first dot product argument.
+        - `arg_1`: first dot product argument (iterable).
 
-        :type arg_1: iterable
+        - `arg_2`: second dot product argument (iterable).
 
-        :param arg_2: second dot product argument.
-
-        :type arg_2: iterable
-
-        :returns: kernel value.
-
-        :rtype: float"""
+        Returns: kernel value (float).'''
 
         return float(np.dot(arg_1, arg_2))
 
