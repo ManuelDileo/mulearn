@@ -201,7 +201,7 @@ class HyperbolicKernel(Kernel):
     def compute(self, arg_1, arg_2):
         r'''Compute the hyperbolic kernel between `arg_1` and `arg_2`,
         where the kernel value $k(x_1, x_2)$ is intended as the quantity
-        $\tanh(\alpha x_1 \dot x_2 + \beta)$, $\alpha$ and $\beta$ being the
+        $\tanh(\alpha x_1 \cdot x_2 + \beta)$, $\alpha$ and $\beta$ being the
         scale and offset values, respectively.
 
         - `arg_1`: first argument to the gaussian kernel (iterable).
