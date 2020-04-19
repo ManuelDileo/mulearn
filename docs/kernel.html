@@ -1069,13 +1069,23 @@ standard deviation.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>k = GaussianKernel(1)</p>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">GaussianKernel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
-</div>
-</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Only positive values can be used as standard deviation, otherwise a
@@ -1288,49 +1298,264 @@ thrown.</p>
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="HyperbolicKernel" class="doc_header"><code>class</code> <code>HyperbolicKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L187" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>HyperbolicKernel</code>(<strong><code>scale</code></strong>=<em><code>1</code></em>, <strong><code>offset</code></strong>=<em><code>0</code></em>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
 </blockquote>
-<p>Hyperbolic kernel inducing in the original space a superposition of
-gaussian bells.</p>
-<p>:param scale: scale constant.</p>
-<p>:type scale: float</p>
-<p>:param offset: offset constant.</p>
-<p>:type offset: float</p>
-<p>EXAMPLES:</p>
-<p>A :class:<a href="/mulearn/kernel#HyperbolicKernel"><code>HyperbolicKernel</code></a> object is obtained in function of its degree:</p>
-<blockquote><blockquote><blockquote><p>from yaplf.models.kernel import HyperbolicKernel
-k = HyperbolicKernel(1, 5)</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pseudo-kernel corresponding to a dot product based on hyperbolic tangent.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="HyperbolicKernel.__init__" class="doc_header"><code>HyperbolicKernel.__init__</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L189" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HyperbolicKernel.__init__</code>(<strong><code>scale</code></strong>=<em><code>1</code></em>, <strong><code>offset</code></strong>=<em><code>0</code></em>)</p>
 </blockquote>
-</blockquote>
-</blockquote>
-<p>Arguments of a gaussian kernel are numeric list or tuples
-(possibily intertwined) having the same length, expressed as arguments of
-:meth:<code>compute</code>:</p>
-<blockquote><blockquote><blockquote><p>k.compute((1, 0, 1), (0, 0, 1))
-0.99998771165079559
-k.compute([-3, 1, 0.5], [1, 1.2, -8])
--0.66403677026784891
-k.compute([-1, -4, 3.5], (1, 3.2, 6))
-0.99999999994938904</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>Specification of iterables having unequal length causes a :exc:<code>ValueError</code>
-to be thrown.</p>
-<blockquote><blockquote><blockquote><p>k.compute([-1, 3.5], (1, 3.2, 6))
-Traceback (most recent call last):
-...
-ValueError: matrices are not aligned</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>AUTHORS:</p>
+<p>Creates an instance of <a href="/mulearn/kernel#HyperbolicKernel"><code>HyperbolicKernel</code></a>.</p>
 <ul>
-<li>Dario Malchiodi (2011-02-05)</li>
+<li><p><code>scale</code>: scale constant (float).</p>
+</li>
+<li><p><code>offset</code>: offset constant (float).</p>
+</li>
 </ul>
 
 </div>
 
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A <a href="/mulearn/kernel#HyperbolicKernel"><code>HyperbolicKernel</code></a> object is obtained in function of its degree.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">HyperbolicKernel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="HyperbolicKernel.compute" class="doc_header"><code>HyperbolicKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L201" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>HyperbolicKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
+</blockquote>
+<p>Compute the hyperbolic kernel between <code>arg_1</code> and <code>arg_2</code>,
+where the kernel value $k(x_1, x_2)$ is intended as the quantity
+$\tanh(\alpha x_1 \dot x_2 + \beta)$, $\alpha$ and $\beta$ being the
+scale and offset values, respectively.</p>
+<ul>
+<li><p><code>arg_1</code>: first argument to the gaussian kernel (iterable).</p>
+</li>
+<li><p><code>arg_2</code>: second argument to the gaussian kernel (iterable).</p>
+</li>
+</ul>
+<p>Returns: kernel value (float).</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Arguments</span> <span class="n">of</span> <span class="err">`</span><span class="n">compute</span><span class="err">`</span> <span class="n">are</span> <span class="n">numerical</span> <span class="n">iterables</span> <span class="p">(</span><span class="n">possibily</span> <span class="n">intertwined</span><span class="p">)</span> <span class="n">having</span>
+<span class="n">the</span> <span class="n">same</span> <span class="n">length</span><span class="o">.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">HyperbolicKernel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9999877116507956</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-0.6640367702678489</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.999999999949389</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Specification of iterables having unequal length causes a <code>ValueError</code> to be
+thrown.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Tests</strong></p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">HyperbolicKernel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">0.9999877</span><span class="p">))</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">])</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="o">-</span><span class="mf">0.6640367</span><span class="p">))</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">0.9999999</span><span class="p">))</span>
+
+<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 

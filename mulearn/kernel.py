@@ -185,105 +185,35 @@ class GaussianKernel(Kernel):
 # Cell
 
 class HyperbolicKernel(Kernel):
-    r"""
-    Hyperbolic kernel inducing in the original space a superposition of
-    gaussian bells.
-
-    :param scale: scale constant.
-
-    :type scale: float
-
-    :param offset: offset constant.
-
-    :type offset: float
-
-    EXAMPLES:
-
-    A :class:`HyperbolicKernel` object is obtained in function of its degree:
-
-    >>> from yaplf.models.kernel import HyperbolicKernel
-    >>> k = HyperbolicKernel(1, 5)
-
-    Arguments of a gaussian kernel are numeric list or tuples
-    (possibily intertwined) having the same length, expressed as arguments of
-    :meth:`compute`:
-
-    >>> k.compute((1, 0, 1), (0, 0, 1))
-    0.99998771165079559
-    >>> k.compute([-3, 1, 0.5], [1, 1.2, -8])
-    -0.66403677026784891
-    >>> k.compute([-1, -4, 3.5], (1, 3.2, 6))
-    0.99999999994938904
-
-    Specification of iterables having unequal length causes a :exc:`ValueError`
-    to be thrown.
-
-    >>> k.compute([-1, 3.5], (1, 3.2, 6))
-    Traceback (most recent call last):
-    ...
-    ValueError: matrices are not aligned
-
-    AUTHORS:
-
-    - Dario Malchiodi (2011-02-05)
-
-    """
 
     def __init__(self, scale=1, offset=0):
-        r"""
-        See :class:`HyperbolicKernel` for full documentation.
+        r'''Creates an instance of `HyperbolicKernel`.
 
-        """
+        - `scale`: scale constant (float).
+
+        - `offset`: offset constant (float).
+        '''
 
         Kernel.__init__(self)
         self.scale = scale
         self.offset = offset
 
     def compute(self, arg_1, arg_2):
-        r"""
-        Compute the hyperbolic kernel between :obj:`arg_1` and :obj:`arg_2`,
-        where the kernel value :math:`k(x_1, x_2)` is intended as the quantity
-        :math:`\tanh(k x_1 \dot x_2 + q)`, :math:`k` and :math:`q` being the
+        r'''Compute the hyperbolic kernel between `arg_1` and `arg_2`,
+        where the kernel value $k(x_1, x_2)$ is intended as the quantity
+        $\tanh(\alpha x_1 \dot x_2 + \beta)$, $\alpha$ and $\beta$ being the
         scale and offset values, respectively.
 
-        :param arg_1: first argument to the gaussian kernel.
+        - `arg_1`: first argument to the gaussian kernel (iterable).
 
-        :param arg_2: second argument to the gaussian kernel.
+        - `arg_2`: second argument to the gaussian kernel (iterable).
 
-        :returns: kernel value.
-
-        :rtype: float
-
-        EXAMPLES:
-
-        Arguments of :meth:`compute` are numeric list or tuples (possibily
-        intertwined) having the same length:
-
-        >>> from yaplf.models.kernel import HyperbolicKernel
-        >>> k = HyperbolicKernel(1, 5)
-        >>> k.compute((1, 0, 1), (0, 0, 1))
-        0.99998771165079559
-        >>> k.compute([-3, 1, 0.5], [1, 1.2, -8])
-        -0.66403677026784891
-        >>> k.compute([-1, -4, 3.5], (1, 3.2, 6))
-        0.99999999994938904
-
-        Specification of iterables having unequal length causes a
-        :exc:`ValueError` to be thrown:
-
-        >>> k.compute([-1, 3.5], (1, 3.2, 6))
-        Traceback (most recent call last):
-        ...
-        ValueError: matrices are not aligned
-
-        AUTHORS:
-
-        - Dario Malchiodi (2011-02-05)
-
-        """
+        Returns: kernel value (float).
+        '''
 
         #return float(tanh(self.scale * dot(arg_1, arg_2) +  self.offset))
-        return float(tanh(self.scale * (array(arg_1).dot(array(arg_2))) +  self.offset))
+        dot_orig = np.dot(np.array(arg_1), np.array(arg_2))
+        return float(np.tanh(self.scale * dot_orig +  self.offset))
 
     def __repr__(self):
         return 'HyperbolicKernel(' + repr(self.scale) + ', ' + repr(self.offset) + ')'
