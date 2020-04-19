@@ -67,7 +67,9 @@ description: "The `kernel` module contains the implementations of kernels."
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The base class for kernels is <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a>: it exposes a generic constructor and a base <code>compute</code> method, which is only callable by subclasses. The class method <code>get_default</code> returns a default kernel subclass.</p>
+<p>The base class for kernels is <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a>: it exposes a generic constructor and
+a base <code>compute</code> method, which is only callable by subclasses. The class
+method <code>get_default</code> returns a default kernel subclass.</p>
 
 </div>
 </div>
@@ -130,7 +132,8 @@ description: "The `kernel` module contains the implementations of kernels."
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Linear kernel corresponding to dot product in the original space. This kernel is unique thus it is instantiated invoking the constructor without arguments.</p>
+<p>Linear kernel corresponding to dot product in the original space. This kernel
+is unique, thus it is instantiated invoking the constructor without arguments.</p>
 
 </div>
 </div>
@@ -264,7 +267,7 @@ $x$ and $y$.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>List and tuples can intertwine as arguments:</p>
+<p>Different numeric iterables can intertwine as arguments:</p>
 
 </div>
 </div>
@@ -304,7 +307,8 @@ $x$ and $y$.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Specification of iterables having unequal length causes a <code>ValueError</code> to be thrown.</p>
+<p>Specification of iterables having unequal length causes a <code>ValueError</code> to be
+thrown.</p>
 
 </div>
 </div>
@@ -370,7 +374,10 @@ $x$ and $y$.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Kernel corresponding to a dot product after mapping points on a higher-dimensional space through a polynomial (affine) transformation. A hyperplane in this space corresponds to polynomial surfaces in the original space.</p>
+<p>Kernel corresponding to a dot product after mapping points on a
+higher-dimensional space through a polynomial (affine) transformation. A
+hyperplane in this space corresponds to polynomial surfaces in the original
+space.</p>
 
 </div>
 </div>
@@ -429,7 +436,8 @@ $x$ and $y$.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Only positive integers can be used as polynomial degree, otherwise a <code>ValueError</code> is thrown.</p>
+<p>Only positive integers can be used as polynomial degree, otherwise a
+<code>ValueError</code> is thrown.</p>
 
 </div>
 </div>
@@ -471,7 +479,8 @@ the kernel.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Arguments of <code>compute</code> are numeric iterables (possibily intertwined) having the same length:</p>
+<p>Arguments of <code>compute</code> are numeric iterables (possibily intertwined) having
+the same length:</p>
 
 </div>
 </div>
@@ -612,7 +621,8 @@ the kernel.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Specification of iterables having unequal length causes a <code>ValueError</code> to be thrown.</p>
+<p>Specification of iterables having unequal length causes a <code>ValueError</code> to be
+thrown.</p>
 
 </div>
 </div>
@@ -689,7 +699,10 @@ the kernel.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Kernel corresponding to a dot product after mapping points on a higher-dimensional space through a polynomial (homogeneous) transformation. A hyperplane in this space corresponds to polynomial surfaces in the original space.</p>
+<p>Kernel corresponding to a dot product after mapping points on a
+higher-dimensional space through a polynomial (homogeneous) transformation.
+A hyperplane in this space corresponds to polynomial surfaces in the original
+space.</p>
 
 </div>
 </div>
@@ -748,7 +761,8 @@ the kernel.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Only positive integers can be used as polynomial degree, otherwise <code>ValueError</code> is thrown.</p>
+<p>Only positive integers can be used as polynomial degree, otherwise
+<code>ValueError</code> is thrown.</p>
 
 </div>
 </div>
@@ -792,7 +806,8 @@ degree of the kernel.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Arguments of <code>compute</code> are iterables (possibily intertwined) having the same length.</p>
+<p>Arguments of <code>compute</code> are numerical iterables (possibily intertwined) having
+the same length.</p>
 
 </div>
 </div>
@@ -933,7 +948,8 @@ degree of the kernel.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Specification of iterables having unequal length causes a <code>ValueError</code> to be thrown.</p>
+<p>Specification of iterables having unequal length causes a <code>ValueError</code> to be
+thrown.</p>
 
 </div>
 </div>
@@ -968,6 +984,281 @@ degree of the kernel.</p>
 
 <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
     <span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="GaussianKernel" class="doc_header"><code>class</code> <code>GaussianKernel</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L151" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GaussianKernel</code>(<strong><code>sigma</code></strong>=<em><code>1</code></em>) :: <a href="/mulearn/kernel#Kernel"><code>Kernel</code></a></p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Kernel corresponding to a dot product after mapping points on an
+infinite-dimensional space. A hyperplane in this space corresponds to the
+superposition of exponential surfaces in the original space.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="GaussianKernel.__init__" class="doc_header"><code>GaussianKernel.__init__</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L153" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>GaussianKernel.__init__</code>(<strong><code>sigma</code></strong>=<em><code>1</code></em>)</p>
+</blockquote>
+<p>Creates an instance of <a href="/mulearn/kernel#GaussianKernel"><code>GaussianKernel</code></a>.</p>
+<ul>
+<li><code>sigma</code>: gaussian standard deviation (positive float).</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A <a href="/mulearn/kernel#GaussianKernel"><code>GaussianKernel</code></a> object is obtained in function of the corresponding
+standard deviation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>k = GaussianKernel(1)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Only positive values can be used as standard deviation, otherwise a
+<code>ValueError</code> is thrown.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="GaussianKernel.compute" class="doc_header"><code>GaussianKernel.compute</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/kernel.py#L167" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>GaussianKernel.compute</code>(<strong><code>arg_1</code></strong>, <strong><code>arg_2</code></strong>)</p>
+</blockquote>
+<p>Compute the gaussian kernel between <code>arg_1</code> and <code>arg_2</code>,
+where the kernel value $k(x_1, x_2)$ is intended as the quantity
+$\mathrm e^{-\frac{||x_1 - x_2||^2}{2 \simga^2}$, $\sigma$
+being the kernel standard deviation.</p>
+<ul>
+<li><p><code>arg_1</code>: first argument to the gaussian kernel (iterable).</p>
+</li>
+<li><p><code>arg_2</code>: second argument to the gaussian kernel (iterable).</p>
+</li>
+</ul>
+<p>Returns: kernel value (float).</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Arguments of <code>compute</code> are numeric iterables (possibily intertwined) having
+the same length.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">GaussianKernel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.6065306597126334</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>6.730852854223505e-20</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3.290999446965383e-14</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Specification of iterables having unequal length causes a<code>ValueError</code> to be
+thrown.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Tests</strong></p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+    <span class="n">GaussianKernel</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+    
+<span class="n">k</span> <span class="o">=</span> <span class="n">GaussianKernel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">0.60653065</span><span class="p">))</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">])</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">6.73e-20</span><span class="p">))</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> <span class="o">==</span> <span class="n">pytest</span><span class="o">.</span><span class="n">approx</span><span class="p">(</span><span class="mf">3.29e-14</span><span class="p">))</span>
+
+<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 </pre></div>
 
     </div>
