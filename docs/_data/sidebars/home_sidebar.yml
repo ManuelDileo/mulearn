@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Title
+      title: 'The kernel module '
       url: /kernel
     output: web
     title: mulearn
