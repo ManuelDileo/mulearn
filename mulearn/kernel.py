@@ -4,8 +4,12 @@ __all__ = ['Kernel', 'LinearKernel']
 
 # Cell
 
-class Kernel(object):
+import numpy as np
+import pytest
 
+# Cell
+
+class Kernel(object):
 
     def __init__(self):
 
@@ -18,6 +22,8 @@ class Kernel(object):
 
     @classmethod
     def get_default(cls):
+        r'''Return the default kernel.
+        '''
 
         return LinearKernel()
 
@@ -25,7 +31,6 @@ class Kernel(object):
 # Cell
 
 class LinearKernel(Kernel):
-
 
     def compute(self, arg_1, arg_2):
         r'''
