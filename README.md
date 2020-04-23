@@ -7,7 +7,9 @@
 
 # mulearn
 
-mulearn is a python package implementing the data-driven induction of fuzzy sets described in Learning Membership Functions for Fuzzy Sets through Modified Support Vector Clustering, in F. Masulli, G. Pasi e R. Yager (Eds.), Fuzzy Logic and Applications. 10th International Workshop, WILF 2013, Genoa, Italy, November 19–22, 2013. Proceedings., Vol. 8256, Springer International Publishing, Switzerland, Lecture Notes on Artificial Intelligence.
+mulearn is a python package implementing the data-driven induction of fuzzy sets described in
+
+- D. Malchiodi and W. Pedrycz, _Learning Membership Functions for Fuzzy Sets through Modified Support Vector Clustering_, in F. Masulli, G. Pasi e R. Yager (Eds.), Fuzzy Logic and Applications. 10th International Workshop, WILF 2013, Genoa, Italy, November 19–22, 2013. Proceedings., Vol. 8256, Springer International Publishing, Switzerland, Lecture Notes on Artificial Intelligence.
 
 ## Install
 

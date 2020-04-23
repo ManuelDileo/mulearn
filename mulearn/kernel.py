@@ -10,7 +10,7 @@ import pytest
 
 # Cell
 
-class Kernel(object):
+class Kernel:
 
     def __init__(self):
 

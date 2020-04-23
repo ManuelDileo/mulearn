@@ -10,8 +10,11 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: 'The mulearn.kernel module '
+      title: 'The `mulearn.kernel` module '
       url: /kernel
+    - output: web,pdf
+      title: 'The `mulearn.fuzzifier` module '
+      url: /fuzzifiers
     output: web
     title: mulearn
   output: web

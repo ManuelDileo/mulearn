@@ -8,9 +8,11 @@ index = {"Kernel": "00_kernel.ipynb",
          "HomogeneousPolynomialKernel": "00_kernel.ipynb",
          "GaussianKernel": "00_kernel.ipynb",
          "HyperbolicKernel": "00_kernel.ipynb",
-         "PrecomputedKernel": "00_kernel.ipynb"}
+         "PrecomputedKernel": "00_kernel.ipynb",
+         "Fuzzifier": "01_fuzzifiers.ipynb"}
 
-modules = ["kernel.py"]
+modules = ["kernel.py",
+           "fuzzifier.py"]
 
 doc_url = "https://dariomalchiodi.github.io/mulearn/"
 
