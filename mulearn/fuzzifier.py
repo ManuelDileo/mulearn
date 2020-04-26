@@ -35,7 +35,7 @@ class Fuzzifier:
         raise NotImplementedError(
         'the base class does not implement get_r_to_mu method')
 
-    def get_fuzzified_membership(self,
+    def get_membership(self,
                                  sq_radius, # was SV_square_distance
                                  x_to_sq_dist, # was estimated_square_distance_from_center
                                  return_profile=False):
@@ -100,7 +100,7 @@ class CrispFuzzifier(Fuzzifier):
 
         - `profile`: method to be used in order to fix the fuzzifier
           threshold ('fixed' used the sphere radius, 'infer' fits using
-          data in `self.xs` and `self.mus`.
+          data in `self.xs` and `self.mus`).
         '''
 
         super().__init__(xs, mus)
@@ -133,7 +133,7 @@ class CrispFuzzifier(Fuzzifier):
         has been set to `infer`.
 
         **Note** This function is meant to be called internally by the
-        `get_fuzzified_membership` method in the base `Fuzzifier` class.
+        `get_membership` method in the base `Fuzzifier` class.
 
         - `sq_radius`: squared radius of the learnt sphere (float).
 
@@ -185,7 +185,7 @@ class LinearFuzzifier(Fuzzifier):
 
         - `profile`: method to be used in order to fix the fuzzifier
           threshold ('fixed' used the sphere radius, 'infer' fits using
-          data in `self.xs` and `self.mus`.
+          data in `self.xs` and `self.mus`).
         '''
 
         super().__init__(xs, mus)
@@ -224,7 +224,7 @@ class LinearFuzzifier(Fuzzifier):
         and `mus` attributes when it is has been set to `infer`.
 
         **Note** This function is meant to be called internally by the
-        `get_fuzzified_membership` method in the base `Fuzzifier` class.
+        `get_membership` method in the base `Fuzzifier` class.
 
         - `sq_radius`: squared radius of the learnt sphere (float).
 
@@ -289,9 +289,10 @@ class ExponentialFuzzifier(Fuzzifier):
 
         - `mus`: degree memberships in training set (iterable).
 
-        - `profile`: method to be used in order to fix the fuzzifier
-          threshold ('fixed' used the sphere radius, 'infer' fits using
-          data in `self.xs` and `self.mus`.
+        - `profile`: method to be used in order to fix the exponential
+          decay ('fixed' used the sphere radius, 'infer' fits using
+          data in `self.xs` and `self.mus`, and `alpha` relies on a
+          manually set `alpha` parameter).
 
         - `alpha`: decaying degree of the exponential (float in (0, 1)).
         '''
@@ -308,7 +309,7 @@ class ExponentialFuzzifier(Fuzzifier):
                              "ExponentialFuzzifier should be specified when "
                              "profile='infer'")
 
-        if self.profile == 'alpha':
+        if profile == 'alpha':
             if alpha is None:
                 raise ValueError("alpha must be set to a float when"
                                  "'profile' is 'alpha'")
@@ -332,6 +333,32 @@ class ExponentialFuzzifier(Fuzzifier):
     def get_r_to_mu(self,
                     sq_radius, # was SV_square_distance
                     x_to_sq_dist): #was estimated_square_distance_from_center
+        r'''Returns a function that transforms the square distance between
+        center of the learnt sphere and the image of a point in original
+        space into a crisp membership degree having the form
+
+        $$ \mu(r) = \begin{cases}
+          1    & \text{if $r \leq r_\text{crisp}$,} \\
+          e(r) & \text{otherwise,}
+        \end{cases}$$
+
+        where $e$ is an exponential function decreasing from 1 to 0. The
+        shape of this function is chosen so that the latter contains the
+        point (sq_radius, 0.5) if the `profile` attribute of the class
+        have been set to `fixed`, induced via interpolation of the `xs`
+        and `mus` attributes when it is has been set to `infer`, and
+        manually set via the `alpha` parameter of the constructor when
+        `profile='alpha'`.
+
+        **Note** This function is meant to be called internally by the
+        `get_membership` method in the base `Fuzzifier` class.
+
+        - `sq_radius`: squared radius of the learnt sphere (float).
+
+        - `x_to_sq_dist`: mapping of a point in original space into the
+          square distance of its image from the center of the learnt sphere
+          (function).
+        '''
 
         r_1_guess = np.median([x_to_sq_dist(x)
                                for x, mu in zip(self.xs, self.mus)
@@ -362,13 +389,14 @@ class ExponentialFuzzifier(Fuzzifier):
             return lambda r: r_to_mu_prototype([r], *popt)[0]
 
         elif self.profile == 'alpha':
-            sample = map(x_to_sq_dist, self.sample if self.sample else self.xs)
+            r_sample = map(x_to_sq_dist, self.sample \
+                                         if self.sample else self.xs)
 
             q = np.percentile([s - sq_radius for s in r_sample
                                              if s > sq_radius],
                               100*self.alpha)
 
-            return np.clip(np.exp(np.log(self.alpha)/q * (r - sq_radius)),
+            return lambda r: np.clip(np.exp(np.log(self.alpha)/q * (r - sq_radius)),
                            0, 1)
         else:
             raise ValueError('This should not happen. Check the constructor')
