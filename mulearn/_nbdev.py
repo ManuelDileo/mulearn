@@ -13,7 +13,8 @@ index = {"Kernel": "00_kernel.ipynb",
          "CrispFuzzifier": "01_fuzzifiers.ipynb",
          "LinearFuzzifier": "01_fuzzifiers.ipynb",
          "ExponentialFuzzifier": "01_fuzzifiers.ipynb",
-         "QuantileConstantPiecewiseFuzzifier": "01_fuzzifiers.ipynb"}
+         "QuantileConstantPiecewiseFuzzifier": "01_fuzzifiers.ipynb",
+         "QuantileLinearPiecewiseFuzzifier": "01_fuzzifiers.ipynb"}
 
 modules = ["kernel.py",
            "fuzzifier.py"]
