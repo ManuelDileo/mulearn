@@ -199,57 +199,60 @@ class LinearFuzzifier(Fuzzifier):
         self.latex_name = '$\\hat\\mu_{\\text{lin}}$'
 
 
-    def get_r_to_mu(self, SV_square_distance, sample,
-                    estimated_square_distance_from_center):
-        '''Maps distance from center to membership.
-           If self.profile='infer' this is done fitting a function
-           having the form r -> 1 if r < r_crisp else l(r) where l
-           is a linear decreasing function clipped to zero.
-           If self.profile='fixed' l is bounded to contain the
-           point (SV_square_distance, 0.5).'''
+    def get_r_to_mu(self,
+                    sq_radius, # was SV_square_distance
+                    x_to_sq_dist): #was estimated_square_distance_from_center
+        r'''Returns a function that transforms the square distance between
+        center of the learnt sphere and the image of a point in original
+        space into a crisp membership degree having the form
+
+        $$ \mu(r) = \begin{cases}
+          1    & \text{if $r \leq r_\text{crisp}$,} \\
+          l(r) & \text{otherwise,}
+        \end{cases}$$
+
+        where $l$ is a linear function decreasing from 1 to 0. The slope of
+        this linear function is chosen so that the latter contains the point
+        (sq_radius, 0.5) if the `profile` attribute of the class
+        have been set to `fixed`, and induced via interpolation of the `xs`
+        and `mus` attributes when it is has been set to `infer`.
+
+        **Note** This function is meant to be called internally by the
+        `get_fuzzified_membership` method in the base `Fuzzifier` class.
+
+        - `sq_radius`: squared radius of the learnt sphere (float).
+
+        - `x_to_sq_dist`: mapping of a point in original space into the
+          square distance of its image from the center of the learnt sphere
+          (function).
+        '''
 
 
-        rdata = np.fromiter(map(estimated_square_distance_from_center,
-                                self.xs),
-                            dtype=float)
+        rdata = np.fromiter(map(x_to_sq_dist, self.xs), dtype=float)
 
-        r_1_guess = np.median([estimated_square_distance_from_center(x)
+        r_1_guess = np.median([x_to_sq_dist(x)
                                for x, mu in zip(self.xs, self.mus)
                                if mu>=0.99])
 
         if self.profile == 'fixed':
             def r_to_mu_prototype(r, r_1):
-                def r_to_mu_single(rr):
-                    r_05 = SV_square_distance
-                    res = 1 - 0.5 * (rr - r_1) / (r_05 - r_1)
-                    if rr < r_1:
-                        return 1
-                    elif res < 0:
-                        return 0
-                    else:
-                        return res
-
-                return [r_to_mu_single(rr) for rr in r]
+                return [np.clip(1 - 0.5 * (rr-r_1) / (sq_radius - r_1), 0, 1)
+                        for rr in r]
 
             popt, _ = curve_fit(r_to_mu_prototype,
                                 rdata, self.mus,
                                 p0=(r_1_guess,),
                                 bounds=((0,), (np.inf,)))
+
         elif self.profile == 'infer':
+
             def r_to_mu_prototype(r, r_1, r_0):
-                def r_to_mu_single(rr):
-                    res = 1 - (r_1 - rr) / (r_1 - r_0)
-                    if rr < r_1:
-                        return 1
-                    elif rr > r_0:
-                        return 0
-                    else:
-                        return res
-                return [r_to_mu_single(rr) for rr in r]
+                return [np.clip(1 - (r_1 - rr) / (r_1 - r_0), 0, 1)
+                        for rr in r]
 
             popt, _ = curve_fit(r_to_mu_prototype,
                                 rdata, self.mus,
-                                p0=(r_1_guess, 10*SV_square_distance),
+                                p0=(r_1_guess, 10*sq_radius),
                                 bounds=((0, 0), (np.inf, np.inf,)))
         else:
             raise ValueError('This should never happen.'
@@ -260,21 +263,11 @@ class LinearFuzzifier(Fuzzifier):
         return lambda r: r_to_mu_prototype([r], *popt)[0]
 
 
-
     def __repr__(self):
-        return "LinearFuzzifier({}, {}, profile='{}')".format(self.xs, self.mus, self.profile)
-
-    def __str__(self):
-        return self.__repr__()
-
-    def __eq__(self, other):
-        return type(self) == type(other)
-
-    def __ne__(self, other):
-        return not self == other
-
-    def __hash__(self):
-        return hash(self.__repr__())
-
-    def __nonzero__(self):
-        return True
+        xs_repr = self.xs.__repr__()
+        mus_repr = self.mus.__repr__()
+        self_repr = f'LinearFuzzifier({xs_repr}, {mus_repr}'
+        if self.profile != 'fixed':
+            self_repr += f', profile={self.profile}'
+        self_repr += ')'
+        return self_repr
