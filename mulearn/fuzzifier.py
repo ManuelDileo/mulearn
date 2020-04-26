@@ -463,7 +463,7 @@ class QuantileConstantPiecewiseFuzzifier(Fuzzifier):
           (function).
         '''
 
-        r_sample = map(x_to_sq_dist, sample if self.sample is not None \
+        r_sample = map(x_to_sq_dist, self.sample if self.sample is not None \
                                             else self.xs)
         external_dist = [s-sq_radius
                          for s in r_sample if s > sq_radius]
