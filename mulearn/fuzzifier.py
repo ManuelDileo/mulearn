@@ -234,7 +234,6 @@ class LinearFuzzifier(Fuzzifier):
           (function).
         '''
 
-
         rdata = np.fromiter(map(x_to_sq_dist, self.xs), dtype=float)
 
         r_1_guess = np.median([x_to_sq_dist(x)
@@ -463,8 +462,8 @@ class QuantileConstantPiecewiseFuzzifier(Fuzzifier):
           (function).
         '''
 
-        r_sample = map(x_to_sq_dist, self.sample if self.sample is not None \
-                                            else self.xs)
+        r_sample = np.fromiter(map(x_to_sq_dist, self.sample \
+                      if self.sample is not None else self.xs), dtype=float)
         external_dist = [s-sq_radius
                          for s in r_sample if s > sq_radius]
 
