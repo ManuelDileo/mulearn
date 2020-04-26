@@ -176,7 +176,7 @@ class CrispFuzzifier(Fuzzifier):
 # Cell
 
 class LinearFuzzifier(Fuzzifier):
-    def __init__(self, xs=None, mus=None, profile='infer'):
+    def __init__(self, xs=None, mus=None, profile='fixed'):
         r'''Creates an instance of `LinearFuzzifier`
 
         - `xs`: objects in training set (iterable).
@@ -193,6 +193,12 @@ class LinearFuzzifier(Fuzzifier):
         if profile not in ['fixed', 'infer']:
             raise ValueError(f"'profile' parameter should be equal to "
                              "'fixed' or 'infer' (provided value: {profile})")
+
+        if profile == 'infer' and (xs is None or mus is None):
+            raise ValueError(f"all arguments to the constructor of "
+                             "CrispFuzzifier should be specified when "
+                             "profile='infer'")
+
         self.profile = profile
 
         self.name = 'Linear'
