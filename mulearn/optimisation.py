@@ -40,7 +40,8 @@ def solve_optimization_tensorflow(xs, mus,
                           init_bound=0.1,
                           init_val=0.01,
                           n_iter=100,
-                          optimizer=tf.optimizers.Adam(learning_rate=1e-4),
+                          optimizer=tf.optimizers.Adam(learning_rate=1e-4) \
+                                    if tensorflow_ok else None,
                           tracker=tqdm.trange if tqdm_ok else range,
                           penalization=10):
     '''Builds and solves the constrained optimization problem on the basis
