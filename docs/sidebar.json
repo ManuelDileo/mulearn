@@ -3,6 +3,6 @@
     "Overview": "/",
     "The `mulearn.kernel` module ": "/kernel",
     "The `mulearn.fuzzifier` module ": "/fuzzifiers",
-    "Title": "/optimisation"
+    "The `mulearn.optimization` module ": "/optimisation"
   }
 }
