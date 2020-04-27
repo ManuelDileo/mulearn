@@ -37,9 +37,9 @@ class Fuzzifier:
         'the base class does not implement get_r_to_mu method')
 
     def get_membership(self,
-                                 sq_radius, # was SV_square_distance
-                                 x_to_sq_dist, # was estimated_square_distance_from_center
-                                 return_profile=False):
+                       sq_radius, # was SV_square_distance
+                       x_to_sq_dist, # was estimated_square_distance_from_center
+                       return_profile=False):
         '''Return the induced membership function.
 
         - `sq_radius`: squared radius of the learnt sphere (float).
