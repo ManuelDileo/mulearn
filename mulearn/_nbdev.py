@@ -14,10 +14,14 @@ index = {"Kernel": "00_kernel.ipynb",
          "LinearFuzzifier": "01_fuzzifiers.ipynb",
          "ExponentialFuzzifier": "01_fuzzifiers.ipynb",
          "QuantileConstantPiecewiseFuzzifier": "01_fuzzifiers.ipynb",
-         "QuantileLinearPiecewiseFuzzifier": "01_fuzzifiers.ipynb"}
+         "QuantileLinearPiecewiseFuzzifier": "01_fuzzifiers.ipynb",
+         "solve_optimization_tensorflow": "02_optimisation.ipynb",
+         "solve_optimization_gurobi": "02_optimisation.ipynb",
+         "solve_optimization": "02_optimisation.ipynb"}
 
 modules = ["kernel.py",
-           "fuzzifier.py"]
+           "fuzzifier.py",
+           "optimisation.py"]
 
 doc_url = "https://dariomalchiodi.github.io/mulearn/"
 

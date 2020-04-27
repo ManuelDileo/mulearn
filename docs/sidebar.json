@@ -2,6 +2,7 @@
   "mulearn": {
     "Overview": "/",
     "The `mulearn.kernel` module ": "/kernel",
-    "The `mulearn.fuzzifier` module ": "/fuzzifiers"
+    "The `mulearn.fuzzifier` module ": "/fuzzifiers",
+    "Title": "/optimisation"
   }
 }

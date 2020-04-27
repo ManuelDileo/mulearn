@@ -15,6 +15,9 @@ entries:
     - output: web,pdf
       title: 'The `mulearn.fuzzifier` module '
       url: /fuzzifiers
+    - output: web,pdf
+      title: Title
+      url: /optimisation
     output: web
     title: mulearn
   output: web
