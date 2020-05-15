@@ -309,6 +309,10 @@ class ExponentialFuzzifier(Fuzzifier):
                              "ExponentialFuzzifier should be specified when "
                              "profile='infer'")
 
+        if alpha is not None and profile != 'alpha':
+            raise ValueError(f"'alpha' value is specified, but 'profile' "
+                             f"is set to '{profile}'")
+
         if profile == 'alpha':
             if alpha is None:
                 raise ValueError("alpha must be set to a float when"

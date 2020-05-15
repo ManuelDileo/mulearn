@@ -4,23 +4,30 @@ __all__ = ['FuzzyInductor']
 
 # Cell
 
+import numpy as np
+
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from sklearn.utils import check_random_state
 
 import mulearn.kernel as kernel
 import mulearn.fuzzifier as fuzz
-from .optimisation import solve_optimization_tensorflow
+from .optimization import solve_optimization
+from .optimization import solve_optimization_tensorflow
 
 # Cell
 
 class FuzzyInductor(BaseEstimator, RegressorMixin):
 
-    def __init__(self, c=1, k=kernel.GaussianKernel(),
-                 sample_generator=None, fuzzifier=fuzz.ExponentialFuzzifier,
+    def __init__(self,
+                 c=1,
+                 k=kernel.GaussianKernel(),
+                 sample_generator=None,
+                 fuzzifier=fuzz.ExponentialFuzzifier,
                  solve_strategy=(solve_optimization_tensorflow, {}),
                  random_state=None,
-                 return_vars=False, return_profile=False):
+                 return_vars=False,
+                 return_profile=False):
         self.c = c
         self.k = k
         self.sample_generator = sample_generator
@@ -42,36 +49,35 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
         self.chis_ = solve_optimization(X, y,
                                         self.c, self.k,
                                         self.solve_strategy[0],
-                                        self.solve_strategy[1])
+                                        **self.solve_strategy[1])
 
-        if type(self.k) is PrecomputedKernel:
+        if type(self.k) is kernel.PrecomputedKernel:
             self.gram_ = self.k.kernel_computations
         else:
             self.gram_ = np.array([[self.k.compute(x1, x2) for x1 in X]
                                     for x2 in X])
         self.fixed_term_ = np.array(self.chis_).dot(self.gram_.dot(self.chis_))
 
-        def estimated_square_distance_from_center(x_new):
+        def x_to_sq_dist(x_new):
             ret = self.k.compute(x_new, x_new) \
                   - 2 * np.array([self.k.compute(x_i, x_new)
                                   for x_i in X]).dot(self.chis_) \
                   + self.fixed_term_
             return ret
-        self.estimated_square_distance_from_center_ = \
-                estimated_square_distance_from_center
+        self.x_to_sq_dist_ = x_to_sq_dist
 
         self.chi_SV_index_ = [i for i, (chi, mu) in enumerate(zip(self.chis_,
                                                                   y))
                               if -self.c * (1-mu) < chi < self.c * mu]
 
+        print(X[self.chi_SV_index_])
+
         #self.chi_SV_index_ = [i for i in range(len(self.chis)_) \
         #        if -self.c*(1-self.mu[i]) < self.chis_[i] < self.c*self.mu[i]]
 
-        chi_SV_square_distance = map(estimated_square_distance_from_center,
-                                     X[self.chi_SV_index_])
+        chi_SV_square_distance = map(x_to_sq_dist, X[self.chi_SV_index_])
         chi_SV_square_distance = list(chi_SV_square_distance)
-        #chi_SV_square_distance = [estimated_square_distance_from_center(x[i])
-        #                          for i in chi_SV_index]
+        #chi_SV_square_distance = [x_to_sq_dist(x[i]) for i in chi_SV_index]
 
         if len(chi_SV_square_distance) == 0:
             self.estimated_membership_ = None
@@ -94,10 +100,10 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
 
 
         fuzzifier = self.fuzzifier(X, y)
-        result = fuzzifier.get_fuzzified_membership(
+        result = fuzzifier.get_membership(
                 self.SV_square_distance_,
                 sample,
-                self.estimated_square_distance_from_center_,
+                self.x_to_sq_dist_,
                 return_profile=self.return_profile)
 
 
