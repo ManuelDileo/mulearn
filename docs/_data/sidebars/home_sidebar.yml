@@ -21,6 +21,9 @@ entries:
     - output: web,pdf
       title: 'The `mulearn` module '
       url: /mulearn
+    - output: web,pdf
+      title: Title
+      url: /learn-1D-fuzzy-learn
     output: web
     title: mulearn
   output: web
