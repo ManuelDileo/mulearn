@@ -22,22 +22,67 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
     def __init__(self,
                  c=1,
                  k=kernel.GaussianKernel(),
-                 sample_generator=None,
+                 #sample_generator=None,
                  fuzzifier=fuzz.ExponentialFuzzifier,
                  solve_strategy=(solve_optimization_tensorflow, {}),
                  random_state=None,
-                 return_vars=False,
+                 #return_vars=False,
                  return_profile=False):
+        r'''Creates an instance of `FuzzyInductor`
+
+        - `c`: trade-off constant (`float`).
+
+        - `k`: kernel function (`mulearn.kernel.Kernel`).
+
+        - `fuzzifier`: fuzzifier mapping distance values to membership
+           degrees (`mulearn.fuzzifiers.Fuzzifier`).
+
+        - `solve_strategy`: strategy to be used to solve optimization (tuple
+           containing the reference to an optimization function and a
+           dictionary holding optimization parameters).
+
+        - `random_state`: seed of pseudorandom generator (`int`).
+
+        - `return_profile`: flag triggering the generation of the profile of
+          the learnt fuzzy set (`bool`).
+
+        '''
+
         self.c = c
         self.k = k
-        self.sample_generator = sample_generator
+        #self.sample_generator = sample_generator
         self.fuzzifier = fuzzifier
         self.solve_strategy = solve_strategy
         self.random_state = random_state
-        self.return_vars = return_vars
+        #self.return_vars = return_vars
         self.return_profile = return_profile
 
     def fit(self, X, y, **kwargs):
+        r'''Induces the membership function starting from a labeled sample
+
+        - `X`: vectors in data space (iterable of `float` vectors having the
+          same length).
+
+        - `y`: membership for the vectors in `X` (iterable of `float` having
+          the same length of `X`).
+
+        Returns: self
+
+        Throws:
+
+        - ValueError if the values in `y` are not between 0 and 1, if `X` and
+          have different lengths, or if `X` contains elements of different
+          lengths.
+
+        '''
+
+        if type(X) is not np.array:
+            X = np.array(X)
+
+        for e in y:
+            if e < 0 or e > 1:
+                raise ValueError('`y` values should belong to [0, 1]')
+
 
         check_X_y(X, y)
         self.random_state_ = check_random_state(self.random_state)
@@ -70,16 +115,14 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
                                                                   y))
                               if -self.c * (1-mu) < chi < self.c * mu]
 
-        print(X[self.chi_SV_index_])
-
         #self.chi_SV_index_ = [i for i in range(len(self.chis)_) \
         #        if -self.c*(1-self.mu[i]) < self.chis_[i] < self.c*self.mu[i]]
 
-        chi_SV_square_distance = map(x_to_sq_dist, X[self.chi_SV_index_])
-        chi_SV_square_distance = list(chi_SV_square_distance)
-        #chi_SV_square_distance = [x_to_sq_dist(x[i]) for i in chi_SV_index]
+        chi_sq_radius = map(x_to_sq_dist, X[self.chi_SV_index_])
+        chi_sq_radius = list(chi_sq_radius)
+        #chi_sq_radius = [x_to_sq_dist(x[i]) for i in chi_SV_index]
 
-        if len(chi_SV_square_distance) == 0:
+        if len(chi_sq_radius) == 0:
             self.estimated_membership_ = None
             self.train_error_ = np.inf
             self.chis_ = None
@@ -88,21 +131,20 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
             return self
             #raise ValueError('No support vectors found')
 
-        self.SV_square_distance_ = np.mean(chi_SV_square_distance)
-        num_samples = 500
+        self.sq_radius_ = np.mean(chi_sq_radius)
+        #num_samples = 500
 
-        if self.sample_generator is None:
-            self.sample_generator = lambda x: x
+        #if self.sample_generator is None:
+        #    self.sample_generator = lambda x: x
 
         #sample = map(self.sample_generator,
         #             self.random_state_.random_sample(num_samples))
-        sample = self.sample_generator(num_samples)
+        #sample = self.sample_generator(num_samples)
 
 
         fuzzifier = self.fuzzifier(X, y)
         result = fuzzifier.get_membership(
-                self.SV_square_distance_,
-                sample,
+                self.sq_radius_, # sq_radius, was SV_square_distance_
                 self.x_to_sq_dist_,
                 return_profile=self.return_profile)
 
@@ -119,12 +161,37 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
 
 
     def predict(self, X):
+        r'''Computes predictions for the membership grades of one or more
+        vectors.
+
+        - `X`: vectors in data space (iterable of vectors having the same
+          length).
+
+        Returns: array of the predictions for each value in `X`.
+
+        '''
 
         check_is_fitted(self, ['chis_', 'estimated_membership_'])
         X = check_array(X)
         return np.array([self.estimated_membership_(x) for x in X])
 
     def score(self, X, y):
+        r'''Computes the negated accuracy of the learnt fuzzy set against
+        a set of labeled data.
+
+        - `X`: vectors in data space (iterable of `float` vectors having the
+          same length).
+
+        - `y`: membership for the vectors in `X` (iterable of `float` having
+          the same length of `X`).
+
+        Returns: negated accuracy of the predictions done on the elements in
+        `X` w.r.t. the labels in `y`.
+
+        '''
+
+        check_X_y(X, y)
+
         if self.estimated_membership_ is None:
             return -np.inf
         else:

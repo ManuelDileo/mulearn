@@ -19,7 +19,7 @@ entries:
       title: 'The `mulearn.optimization` module '
       url: /optimization
     - output: web,pdf
-      title: Title
+      title: 'The `mulearn` module '
       url: /mulearn
     output: web
     title: mulearn
