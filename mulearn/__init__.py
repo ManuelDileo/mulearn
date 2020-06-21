@@ -66,6 +66,7 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
         #self.return_vars = return_vars
         self.return_profile = return_profile
 
+
     def fix_object_state(self, X, y):
         self.X = X
         self.y = y
@@ -139,6 +140,8 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
           lengths.
 
         '''
+
+        print(f'fitting {self.c}, {self.k}, {self.fuzzifier}')
 
         if type(X) is not np.array:
             X = np.array(X)
