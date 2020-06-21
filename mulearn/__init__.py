@@ -55,11 +55,8 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
         '''
 
         self.c = c
-        print(f'c is {c}')
         self.k = k
-        print(f'k is {k}')
         #self.sample_generator = sample_generator
-        print(f'fuzzifier is {fuzzifier}')
 
         #self.fuzzifier = fuzzifier_descr[0]
         #self.fuzzifier_opts = fuzzifier_descr[1]
