@@ -183,7 +183,7 @@ try:
     gr_dataset()
     gr_membership_contour(f.estimated_membership_)
     plt.show()
-except ModuleNotFoundError:
+except ModuleNotFoundError, ValueError:
     print('Gurobi not available')
 ```
 
