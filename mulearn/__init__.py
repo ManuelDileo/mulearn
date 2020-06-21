@@ -6,6 +6,7 @@ __all__ = ['FuzzyInductor']
 
 import numpy as np
 from warnings import warn
+import copy
 
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
@@ -24,7 +25,9 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
                  c=1,
                  k=kernel.GaussianKernel(),
                  #sample_generator=None,
-                 fuzzifier=fuzz.ExponentialFuzzifier,
+                 fuzzifier=(fuzz.ExponentialFuzzifier, {}),
+                 #fuzzifier=fuzz.ExponentialFuzzifier,
+                 #fuzzifier_opts = {},
                  solve_strategy=(solve_optimization_tensorflow, {}),
                  random_state=None,
                  #return_vars=False,
@@ -36,7 +39,9 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
         - `k`: kernel function (`mulearn.kernel.Kernel`).
 
         - `fuzzifier`: fuzzifier mapping distance values to membership
-           degrees (`mulearn.fuzzifiers.Fuzzifier`).
+           degrees (tuple containing a `mulearn.fuzzifiers.Fuzzifier`
+           subclass F and a dictionary holding fixed parameters to be
+           passed to the constructor of F).
 
         - `solve_strategy`: strategy to be used to solve optimization (tuple
            containing the reference to an optimization function and a
@@ -50,13 +55,74 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
         '''
 
         self.c = c
+        print(f'c is {c}')
         self.k = k
+        print(f'k is {k}')
         #self.sample_generator = sample_generator
-        self.fuzzifier = fuzzifier
+        print(f'fuzzifier is {fuzzifier}')
+
+        #self.fuzzifier = fuzzifier_descr[0]
+        #self.fuzzifier_opts = fuzzifier_descr[1]
         self.solve_strategy = solve_strategy
+        self.fuzzifier = fuzzifier
         self.random_state = random_state
         #self.return_vars = return_vars
         self.return_profile = return_profile
+
+    def fix_object_state(self, X, y):
+        self.X = X
+        self.y = y
+
+        def x_to_sq_dist(x_new):
+            ret = self.k.compute(x_new, x_new) \
+                  - 2 * np.array([self.k.compute(x_i, x_new)
+                                  for x_i in X]).dot(self.chis_) \
+                  + self.fixed_term_
+            return ret
+        self.x_to_sq_dist_ = x_to_sq_dist
+
+        self.chi_SV_index_ = [i for i, (chi, mu) in enumerate(zip(self.chis_,
+                                                                  y))
+                              if -self.c * (1-mu) < chi < self.c * mu]
+
+        #self.chi_SV_index_ = [i for i in range(len(self.chis)_) \
+        #        if -self.c*(1-self.mu[i]) < self.chis_[i] < self.c*self.mu[i]]
+
+        chi_sq_radius = map(x_to_sq_dist, X[self.chi_SV_index_])
+        chi_sq_radius = list(chi_sq_radius)
+        #chi_sq_radius = [x_to_sq_dist(x[i]) for i in chi_SV_index]
+
+        if len(chi_sq_radius) == 0:
+            self.estimated_membership_ = None
+            self.train_error_ = np.inf
+            self.chis_ = None
+            self.profile = None
+            warn('No support vectors found')
+            return self
+            #raise ValueError('No support vectors found')
+
+        self.sq_radius_ = np.mean(chi_sq_radius)
+        #num_samples = 500
+
+        #if self.sample_generator is None:
+        #    self.sample_generator = lambda x: x
+
+        #sample = map(self.sample_generator,
+        #             self.random_state_.random_sample(num_samples))
+        #sample = self.sample_generator(num_samples)
+
+
+        fuzzifier = self.fuzzifier[0](X, y, **self.fuzzifier[1])
+        result = fuzzifier.get_membership(
+                self.sq_radius_, # sq_radius, was SV_square_distance_
+                self.x_to_sq_dist_,
+                return_profile=self.return_profile)
+
+
+        if self.return_profile:
+            self.estimated_membership_, self.profile_ = result
+        else:
+            self.estimated_membership_ = result[0]
 
     def fit(self, X, y, **kwargs):
         r'''Induces the membership function starting from a labeled sample
@@ -104,56 +170,7 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
                                     for x2 in X])
         self.fixed_term_ = np.array(self.chis_).dot(self.gram_.dot(self.chis_))
 
-        def x_to_sq_dist(x_new):
-            ret = self.k.compute(x_new, x_new) \
-                  - 2 * np.array([self.k.compute(x_i, x_new)
-                                  for x_i in X]).dot(self.chis_) \
-                  + self.fixed_term_
-            return ret
-        self.x_to_sq_dist_ = x_to_sq_dist
-
-        self.chi_SV_index_ = [i for i, (chi, mu) in enumerate(zip(self.chis_,
-                                                                  y))
-                              if -self.c * (1-mu) < chi < self.c * mu]
-
-        #self.chi_SV_index_ = [i for i in range(len(self.chis)_) \
-        #        if -self.c*(1-self.mu[i]) < self.chis_[i] < self.c*self.mu[i]]
-
-        chi_sq_radius = map(x_to_sq_dist, X[self.chi_SV_index_])
-        chi_sq_radius = list(chi_sq_radius)
-        #chi_sq_radius = [x_to_sq_dist(x[i]) for i in chi_SV_index]
-
-        if len(chi_sq_radius) == 0:
-            self.estimated_membership_ = None
-            self.train_error_ = np.inf
-            self.chis_ = None
-            self.profile = None
-            warn('No support vectors found')
-            return self
-            #raise ValueError('No support vectors found')
-
-        self.sq_radius_ = np.mean(chi_sq_radius)
-        #num_samples = 500
-
-        #if self.sample_generator is None:
-        #    self.sample_generator = lambda x: x
-
-        #sample = map(self.sample_generator,
-        #             self.random_state_.random_sample(num_samples))
-        #sample = self.sample_generator(num_samples)
-
-
-        fuzzifier = self.fuzzifier(X, y)
-        result = fuzzifier.get_membership(
-                self.sq_radius_, # sq_radius, was SV_square_distance_
-                self.x_to_sq_dist_,
-                return_profile=self.return_profile)
-
-
-        if self.return_profile:
-            self.estimated_membership_, self.profile_ = result
-        else:
-            self.estimated_membership_ = result[0]
+        self.fix_object_state(X, y)
 
         self.train_error_ = np.mean([(self.estimated_membership_(x) - mu)**2
                                     for x, mu in zip(X, y)])
@@ -198,3 +215,16 @@ class FuzzyInductor(BaseEstimator, RegressorMixin):
         else:
             return -np.mean([(self.estimated_membership_(x) - mu)**2
                              for x, mu in zip(X, y)])
+
+    def __getstate__(self):
+        d = copy.deepcopy(self.__dict__)
+        del d['estimated_membership_']
+        del d['x_to_sq_dist_']
+        return d
+
+
+    def __setstate__(self, d):
+        self.__dict__ = d
+        self.fix_object_state(self.X, self.y)
+        self.__dict__['estimated_membership_'] = self.estimated_membership_
+        self.__dict__['x_to_sq_dist_'] = self.x_to_sq_dist_
