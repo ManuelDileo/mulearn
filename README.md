@@ -176,13 +176,15 @@ plt.show()
 
 
 ```python
+try:
+    f = FuzzyInductor(solve_strategy=(solve_optimization_gurobi, {}))
+    f.fit(iris_values_2d, mu['Iris-virginica'])
 
-f = FuzzyInductor(solve_strategy=(solve_optimization_gurobi, {}))
-f.fit(iris_values_2d, mu['Iris-virginica'])
-
-gr_dataset()
-gr_membership_contour(f.estimated_membership_)
-plt.show()
+    gr_dataset()
+    gr_membership_contour(f.estimated_membership_)
+    plt.show()
+except ModuleNotFoundError:
+    print('Gurobi not available')
 ```
 
     Academic license - for non-commercial use only

@@ -449,12 +449,15 @@ description: "summary"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">FuzzyInductor</span><span class="p">(</span><span class="n">solve_strategy</span><span class="o">=</span><span class="p">(</span><span class="n">solve_optimization_gurobi</span><span class="p">,</span> <span class="p">{}))</span>
-<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">iris_values_2d</span><span class="p">,</span> <span class="n">mu</span><span class="p">[</span><span class="s1">&#39;Iris-virginica&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">FuzzyInductor</span><span class="p">(</span><span class="n">solve_strategy</span><span class="o">=</span><span class="p">(</span><span class="n">solve_optimization_gurobi</span><span class="p">,</span> <span class="p">{}))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">iris_values_2d</span><span class="p">,</span> <span class="n">mu</span><span class="p">[</span><span class="s1">&#39;Iris-virginica&#39;</span><span class="p">])</span>
 
-<span class="n">gr_dataset</span><span class="p">()</span>
-<span class="n">gr_membership_contour</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">estimated_membership_</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">gr_dataset</span><span class="p">()</span>
+    <span class="n">gr_membership_contour</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">estimated_membership_</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Gurobi not available&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
