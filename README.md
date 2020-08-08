@@ -3,21 +3,29 @@
 
 
 <h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a href="#mulearn" data-toc-modified-id="mulearn-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>mulearn</a></span><ul class="toc-item"><li><span><a href="#Install" data-toc-modified-id="Install-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Install</a></span></li><li><span><a href="#How-to-use" data-toc-modified-id="How-to-use-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>How to use</a></span></li></ul></li></ul></div>
+<div class="toc"><ul class="toc-item"><li><span><a href="#mulearn" data-toc-modified-id="mulearn-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>mulearn</a></span><ul class="toc-item"><li><span><a href="#Install" data-toc-modified-id="Install-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Install</a></span></li><li><span><a href="#How-to-use" data-toc-modified-id="How-to-use-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>How to use</a></span><ul class="toc-item"><li><span><a href="#Fuzzifier" data-toc-modified-id="Fuzzifier-1.2.1"><span class="toc-item-num">1.2.1&nbsp;&nbsp;</span>Fuzzifier</a></span></li><li><span><a href="#Kernel" data-toc-modified-id="Kernel-1.2.2"><span class="toc-item-num">1.2.2&nbsp;&nbsp;</span>Kernel</a></span></li></ul></li></ul></li></ul></div>
 
 # mulearn
 
-mulearn is a python package implementing the data-driven induction of fuzzy sets described in
+mulearn is a python package implementing the metodology for data-driven induction of fuzzy sets described in
 
-- D. Malchiodi and W. Pedrycz, _Learning Membership Functions for Fuzzy Sets through Modified Support Vector Clustering_, in F. Masulli, G. Pasi e R. Yager (Eds.), Fuzzy Logic and Applications. 10th International Workshop, WILF 2013, Genoa, Italy, November 19–22, 2013. Proceedings., Vol. 8256, Springer International Publishing, Switzerland, Lecture Notes on Artificial Intelligence.
+- D. Malchiodi and W. Pedrycz, _Learning Membership Functions for Fuzzy Sets through Modified Support Vector Clustering_, in F. Masulli, G. Pasi e R. Yager (Eds.), Fuzzy Logic and Applications. 10th International Workshop, WILF 2013, Genoa, Italy, November 19–22, 2013. Proceedings., Vol. 8256, Springer International Publishing, Switzerland, Lecture Notes on Artificial Intelligence, 2013;
+- D. Malchiodi and A. G. B. Tettamanzi, _Predicting the Possibilistic Score of OWL Axioms through Modified Support Vector Clustering_, in H. Haddad, R. L. Wainwright e R. Chbeir (Eds.), SAC'18: Proceedings of the 33rd Annual ACM Symposium on Applied Computing, ACM (ISBN 9781450351911), 1984–1991, 2018.
 
 ## Install
 
+The package can easily be installed via `pip`:
+
 `pip install mulearn`
+
+or using the source code available at https://github.com/dariomalchiodi/mulearn.
 
 ## How to use
 
-Fill me in please! Don't forget code examples:
+Consider the Iris dataset, whose 150 observations describe each
+a flower of the Iris species in terms of its sepal and petal width
+and length, as well as of its class (Setosa, Versicolor, and
+Virginica), as exemplified here below.
 
 ```python
 %matplotlib inline
@@ -26,11 +34,94 @@ import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
 
-source = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+source = 'https://archive.ics.uci.edu/ml/'\
+         'machine-learning-databases/iris/iris.data'
 
 iris_df = pd.read_csv(source, header=None)
-iris_df.columns=['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class']
+iris_df.columns=['sepal_length', 'sepal_width',
+                 'petal_length', 'petal_width', 'class']
+iris_df.head()
+```
 
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Focusing on the flower class as fuzzy concept to be learnt from data,
+
+
+```python
 iris_values = iris_df.iloc[:,0:4].values
 iris_labels = iris_df.iloc[:,4].values
 
@@ -51,7 +142,7 @@ gr_dataset()
 ```
 
 
-![png](docs/images/output_7_0.png)
+![png](docs/images/output_8_0.png)
 
 
 ```python
@@ -77,6 +168,15 @@ def gr_membership_contour(estimated_membership):
     
 ```
 
+The main class of the package, called `FuzzySVEstimator`, learns the
+membership function $\mu_A$ to a fuzzy set $A$ from a sample of vectors
+labeled according to the corresponding membership grades to $A$. This
+class exposes an interface analogous to that of estimators in Scikit-Learn,
+thus learning happens through invokation of the `fit` method on an insance
+of the class, specifying objects and targets as arguments. Once this method
+returns, the `estimated_membership_` attribute contains a reference to the
+learnt membership function.
+
 ```python
 from mulearn import FuzzyInductor
 
@@ -87,12 +187,42 @@ gr_membership_contour(f.estimated_membership_)
 plt.show()
 ```
 
-    100%|██████████| 100/100 [00:16<00:00,  5.91it/s]
+    100%|██████████| 100/100 [00:17<00:00,  5.61it/s]
 
 
 
-![png](docs/images/output_10_1.png)
+![png](docs/images/output_12_1.png)
 
+
+Alternatively, it is possible to predict the membership of an object
+through invokation of the `predict` method.
+
+```python
+f.predict([[2, 0]])
+```
+
+
+
+
+    array([1.])
+
+
+
+Hyper-parameters of the learning algorithm, that according to the
+interface required by Scikit-learn should be specified during
+object creation, are described here below.
+
+### Fuzzifier
+
+This hyper-parameter, regulating how the learnt membership function
+decreases from 1 to 0, is specified through the `fuzzifier` argument.
+The corresponding value should be set to a pair containing a class
+in the `mulearn.fuzzifier` module and a dictionary of options be
+used when the former class is instantiated.
+
+The simplest fuzzifier linearly decreases from 1 to 0. It is specified
+via the `mulearn.fuzzifier.LinearFuzzifier` class, which in its simplest
+form does not require specific options.
 
 ```python
 from mulearn import fuzzifier
@@ -105,12 +235,21 @@ gr_membership_contour(f.estimated_membership_)
 plt.show()
 ```
 
-    100%|██████████| 100/100 [00:19<00:00,  5.16it/s]
+    100%|██████████| 100/100 [00:18<00:00,  5.39it/s]
 
 
 
-![png](docs/images/output_11_1.png)
+![png](docs/images/output_16_1.png)
 
+
+When the dictionary provided along with the fuzzifier class
+is empty, the former is typically tuned according to the data
+provided to the learning algorithm. However, it is possible
+to directly specify options in order to set a specific
+behaviour for the fuzzifier to be created. For instance, the
+following cell relies on an `ExponentialFuzzifier`, whose
+exponential decay rate from 1 to 0 is manually set specifying
+the `'profile'` and `'alpha'` keys in the dictionary.
 
 ```python
 f = FuzzyInductor(fuzzifier=(fuzzifier.ExponentialFuzzifier,
@@ -122,12 +261,14 @@ gr_membership_contour(f.estimated_membership_)
 plt.show()
 ```
 
-    100%|██████████| 100/100 [00:20<00:00,  4.98it/s]
+    100%|██████████| 100/100 [00:19<00:00,  5.19it/s]
 
 
 
-![png](docs/images/output_12_1.png)
+![png](docs/images/output_18_1.png)
 
+
+### Kernel
 
 ```python
 from mulearn import kernel
@@ -140,11 +281,11 @@ gr_membership_contour(f.estimated_membership_)
 plt.show()
 ```
 
-    100%|██████████| 100/100 [00:20<00:00,  4.83it/s]
+    100%|██████████| 100/100 [00:18<00:00,  5.29it/s]
 
 
 
-![png](docs/images/output_13_1.png)
+![png](docs/images/output_20_1.png)
 
 
 ```python
@@ -165,7 +306,7 @@ except (ModuleNotFoundError, ValueError):
 
 
 
-![png](docs/images/output_14_1.png)
+![png](docs/images/output_21_1.png)
 
 
 ```python
@@ -182,11 +323,11 @@ gr_membership_contour(f.estimated_membership_)
 plt.show()
 ```
 
-    100%|██████████| 20/20 [00:04<00:00,  4.83it/s]
+    100%|██████████| 20/20 [00:04<00:00,  4.81it/s]
 
 
 
-![png](docs/images/output_15_1.png)
+![png](docs/images/output_22_1.png)
 
 
 ```python
@@ -197,7 +338,7 @@ plt.show()
 ```
 
 
-![png](docs/images/output_16_0.png)
+![png](docs/images/output_23_0.png)
 
 
 ```python
@@ -245,7 +386,7 @@ plt.show()
 ```
 
 
-![png](docs/images/output_19_0.png)
+![png](docs/images/output_26_0.png)
 
 
 ```python
@@ -263,5 +404,5 @@ plt.show()
 ```
 
 
-![png](docs/images/output_21_0.png)
+![png](docs/images/output_28_0.png)
 
