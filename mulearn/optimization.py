@@ -10,6 +10,8 @@ from warnings import warn
 from collections.abc import Iterable
 import logging
 
+from gurobipy import GurobiError
+
 import mulearn.kernel as kernel
 
 logger = logging.getLogger(__name__)
@@ -18,7 +20,7 @@ try:
     import gurobipy as gpy
     gurobi_ok = True
 except ModuleNotFoundError:
-    logger.warn('gurobi not available')
+    logger.warning('gurobi not available')
     gurobi_ok = False
 
 try:
@@ -26,14 +28,14 @@ try:
     tensorflow_ok = True
     logging.getLogger('tensorflow').setLevel(logging.ERROR)
 except ModuleNotFoundError:
-    logger.warn('tensorflow not available')
+    logger.warning('tensorflow not available')
     tensorflow_ok = False
 
 try:
     import tqdm
     tqdm_ok = True
 except ModuleNotFoundError:
-    logger.warn('tqdm not available')
+    logger.warning('tqdm not available')
     tqdm_ok = False
 
 # Cell
@@ -146,7 +148,7 @@ def solve_optimization_gurobi(xs,
       (int).
 
     - `adjustment`: diagonal adjustment in order to deal with non PSD
-      matrices (float).
+      matrices (float or 'auto' for automatic adjustment).
 
     Return a lists containing the optimal values for the independent
     variables chis of the problem.
@@ -185,7 +187,7 @@ def solve_optimization_gurobi(xs,
     for i in range(m):
         obj.add(-1 * chis[i] * k.compute(xs[i], xs[i]))
 
-    if adjustment:
+    if adjustment and adjustment != 'auto':
         for i in range(m):
             obj.add(adjustment * chis[i] * chis[i])
 
@@ -196,8 +198,20 @@ def solve_optimization_gurobi(xs,
 
     model.addConstr(constEqual, gpy.GRB.EQUAL, 1)
 
-    model.optimize()
+    try:
+        model.optimize()
+    except GurobiError as e:
+        if adjustment == 'auto':
+            s = e.message
+            a = float(s[s.find(' of ')+4:s.find(' would')])
+            logger.warning(f'non-diagonal Gram matrix, retrying with adjustment {a}')
+            for i in range(m):
+                obj.add(a * chis[i] * chis[i])
+            model.setObjective(obj, gpy.GRB.MINIMIZE)
 
+            model.optimize()
+        else:
+            raise e
 
     if model.Status != gpy.GRB.OPTIMAL:
         raise ValueError('optimal solution not found!')

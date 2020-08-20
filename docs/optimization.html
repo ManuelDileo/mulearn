@@ -59,7 +59,7 @@ description: "The `mulearn.optimization` module contains the implementations of"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="solve_optimization_tensorflow" class="doc_header"><code>solve_optimization_tensorflow</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/optimization.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>solve_optimization_tensorflow</code>(<strong><code>xs</code></strong>, <strong><code>mus</code></strong>, <strong><code>c</code></strong>=<em><code>1.0</code></em>, <strong><code>k</code></strong>=<em><code>GaussianKernel(1)</code></em>, <strong><code>init</code></strong>=<em><code>'fixed'</code></em>, <strong><code>init_bound</code></strong>=<em><code>0.1</code></em>, <strong><code>init_val</code></strong>=<em><code>0.01</code></em>, <strong><code>n_iter</code></strong>=<em><code>100</code></em>, <strong><code>optimizer</code></strong>=<em><code>&lt;tensorflow.python.keras.optimizer_v2.adam.Adam object at 0x7f744c128cc0&gt;</code></em>, <strong><code>tracker</code></strong>=<em><code>'trange'</code></em>, <strong><code>penalization</code></strong>=<em><code>10</code></em>)</p>
+<h4 id="solve_optimization_tensorflow" class="doc_header"><code>solve_optimization_tensorflow</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/optimization.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>solve_optimization_tensorflow</code>(<strong><code>xs</code></strong>, <strong><code>mus</code></strong>, <strong><code>c</code></strong>=<em><code>1.0</code></em>, <strong><code>k</code></strong>=<em><code>GaussianKernel(1)</code></em>, <strong><code>init</code></strong>=<em><code>'fixed'</code></em>, <strong><code>init_bound</code></strong>=<em><code>0.1</code></em>, <strong><code>init_val</code></strong>=<em><code>0.01</code></em>, <strong><code>n_iter</code></strong>=<em><code>100</code></em>, <strong><code>optimizer</code></strong>=<em><code>&lt;tensorflow.python.keras.optimizer_v2.adam.Adam object at 0x7f8b87eddf28&gt;</code></em>, <strong><code>tracker</code></strong>=<em><code>'trange'</code></em>, <strong><code>penalization</code></strong>=<em><code>10</code></em>)</p>
 </blockquote>
 <p>Builds and solves the constrained optimization problem on the basis
 of the fuzzy learning procedure using the TensorFlow API.</p>
@@ -102,7 +102,7 @@ for random initialization of weights (float)</li>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
 <span class="n">mus</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">solve_optimization_tensorflow</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">mus</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">solve_optimization_tensorflow</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">mus</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">penalization</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">tracker</span><span class="o">=</span><span class="nb">range</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -114,25 +114,17 @@ for random initialization of weights (float)</li>
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|██████████| 10000/10000 [02:27&lt;00:00, 67.96it/s]
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[0.08700843,
- 0.08677655,
- 0.072177425,
- 0.10012639,
- 0.4000344,
- 0.10001182,
- 0.07392875,
- 0.080053486]</pre>
+<pre>[0.11000013,
+ 0.11000013,
+ 0.11000013,
+ 0.10565677,
+ 0.11000013,
+ 0.10565678,
+ 0.11000013,
+ 0.11000013]</pre>
 </div>
 
 </div>
@@ -161,7 +153,7 @@ for random initialization of weights (float)</li>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="solve_optimization_gurobi" class="doc_header"><code>solve_optimization_gurobi</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/optimization.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>solve_optimization_gurobi</code>(<strong><code>xs</code></strong>, <strong><code>mus</code></strong>, <strong><code>c</code></strong>=<em><code>1.0</code></em>, <strong><code>k</code></strong>=<em><code>GaussianKernel(1)</code></em>, <strong><code>time_limit</code></strong>=<em><code>600</code></em>, <strong><code>adjustment</code></strong>=<em><code>0</code></em>)</p>
+<h4 id="solve_optimization_gurobi" class="doc_header"><code>solve_optimization_gurobi</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/optimization.py#L129" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>solve_optimization_gurobi</code>(<strong><code>xs</code></strong>, <strong><code>mus</code></strong>, <strong><code>c</code></strong>=<em><code>1.0</code></em>, <strong><code>k</code></strong>=<em><code>GaussianKernel(1)</code></em>, <strong><code>time_limit</code></strong>=<em><code>600</code></em>, <strong><code>adjustment</code></strong>=<em><code>0</code></em>)</p>
 </blockquote>
 <p>Builds and solves the constrained optimization problem on the basis
 of the fuzzy learning procedure using the gurobi API.</p>
@@ -179,7 +171,7 @@ of the fuzzy learning procedure using the gurobi API.</p>
 (int).</p>
 </li>
 <li><p><code>adjustment</code>: diagonal adjustment in order to deal with non PSD
-matrices (float).</p>
+matrices (float or 'auto' for automatic adjustment).</p>
 </li>
 </ul>
 <p>Return a lists containing the optimal values for the independent
@@ -207,8 +199,6 @@ variables chis of the problem.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-    <span class="n">mus</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">solve_optimization_gurobi</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">mus</span><span class="p">))</span>
 <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
     <span class="k">pass</span>
@@ -224,7 +214,8 @@ variables chis of the problem.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[0.20101385801980381, 0.19226597081910646, 0.3299291932173015, -0.05277550598164347, 0.22956648401237756, 0.09999999991726793, -2.2987167724863866e-12, -1.9505508319639375e-12]
+<pre>Academic license - for non-commercial use only
+[0.20101385801980381, 0.19226597081910646, 0.3299291932173015, -0.05277550598164347, 0.22956648401237756, 0.09999999991726793, -2.2987167724863866e-12, -1.9505508319639375e-12]
 </pre>
 </div>
 </div>
@@ -253,7 +244,7 @@ variables chis of the problem.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="solve_optimization" class="doc_header"><code>solve_optimization</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/optimization.py#L209" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>solve_optimization</code>(<strong><code>xs</code></strong>, <strong><code>mus</code></strong>, <strong><code>c</code></strong>=<em><code>1.0</code></em>, <strong><code>k</code></strong>=<em><code>GaussianKernel(1)</code></em>, <strong><code>solve_strategy</code></strong>=<em><code>'solve_optimization_tensorflow'</code></em>, <strong>**<code>solve_strategy_args</code></strong>)</p>
+<h4 id="solve_optimization" class="doc_header"><code>solve_optimization</code><a href="https://github.com/dariomalchiodi/mulearn/tree/master/mulearn/optimization.py#L223" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>solve_optimization</code>(<strong><code>xs</code></strong>, <strong><code>mus</code></strong>, <strong><code>c</code></strong>=<em><code>1.0</code></em>, <strong><code>k</code></strong>=<em><code>GaussianKernel(1)</code></em>, <strong><code>solve_strategy</code></strong>=<em><code>'solve_optimization_tensorflow'</code></em>, <strong>**<code>solve_strategy_args</code></strong>)</p>
 </blockquote>
 <p>Builds and solves the constrained optimization problem on the basis
 of the fuzzy learning procedure.</p>
