@@ -204,9 +204,9 @@ class HyperbolicKernel(Kernel):
         $\tanh(\alpha x_1 \cdot x_2 + \beta)$, $\alpha$ and $\beta$ being the
         scale and offset values, respectively.
 
-        - `arg_1`: first argument to the gaussian kernel (iterable).
+        - `arg_1`: first argument to the hyperbolic kernel (iterable).
 
-        - `arg_2`: second argument to the gaussian kernel (iterable).
+        - `arg_2`: second argument to the hyperbolic kernel (iterable).
 
         Returns: kernel value (float).
         '''
